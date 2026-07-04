@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --grid-line: rgba(148, 197, 255, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #05080f;
+  color: #e6edf7;
+  font-family: var(--font-inter), sans-serif;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 42px 42px;
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.35);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #05080f;
+}
+::-webkit-scrollbar-thumb {
+  background: #1b2a3f;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #24405f;
+}
+
+/* Focus visibility for a11y */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- Glass panel ---------- */
+.glass-panel {
+  background: linear-gradient(
+    155deg,
+    rgba(15, 27, 46, 0.72) 0%,
+    rgba(10, 18, 31, 0.6) 100%
+  );
+  border: 1px solid rgba(148, 197, 255, 0.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 18px;
+  position: relative;
+}
+
+.glass-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 211, 238, 0.25),
+    rgba(59, 130, 246, 0) 40%,
+    rgba(251, 146, 60, 0.12) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ---------- HUD corner-bracket frame (signature element) ---------- */
+.hud-frame {
+  position: relative;
+}
+.hud-frame::before,
+.hud-frame::after,
+.hud-frame > .hud-corner-tr,
+.hud-frame > .hud-corner-bl {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(34, 211, 238, 0.65);
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+.hud-frame::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+  border-color: rgba(34, 211, 238, 0.65);
+}
+.hud-frame::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+  border-color: rgba(34, 211, 238, 0.65);
+}
+.hud-frame:hover::before,
+.hud-frame:hover::after {
+  width: 22px;
+  height: 22px;
+  border-color: rgba(34, 211, 238, 1);
+}
+
+/* Telemetry text style */
+.telemetry {
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.02em;
+}
+
+/* Gradient text */
+.text-gradient-aura {
+  background: linear-gradient(100deg, #22d3ee 0%, #3b82f6 45%, #34d399 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Animated conic scanning ring used in hero + gauges */
+.scan-ring {
+  background: conic-gradient(
+    from 0deg,
+    rgba(34, 211, 238, 0) 0deg,
+    rgba(34, 211, 238, 0.9) 25deg,
+    rgba(34, 211, 238, 0) 70deg
+  );
+  animation: spin-slow 4s linear infinite;
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.noise-overlay {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+/* Status badge glow dot */
+.status-dot {
+  box-shadow: 0 0 0 0 currentColor;
+}
